@@ -117,6 +117,9 @@ class AutoRun:
     def do(boy):
         boy.x += boy.dir * boy.speed
         boy.frame = (boy.frame + 1) % 8
+        if boy.x < 50 or boy.x > 750:
+            boy.dir *= -1
+            boy.face_dir *= -1
         pass
 
     @staticmethod
@@ -124,7 +127,10 @@ class AutoRun:
         width, height = 100, 100
         scaled_w = width * boy.scale
         scaled_h = height * boy.scale
-        boy.image.clip_draw(boy.frame * width, boy.action * height, width, height, boy.x, boy.y + 40, scaled_w, scaled_h)
+        if boy.face_dir == 1:
+            boy.image.clip_draw(boy.frame * width, boy.action * height, width, height, boy.x, boy.y + 40, scaled_w, scaled_h)
+        else:
+            boy.image.clip_composite_draw(boy.frame * width, boy.action * height, width, height, 0, 'h', boy.x, boy.y + 40, scaled_w, scaled_h)
         pass
 
 
