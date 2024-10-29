@@ -1,6 +1,6 @@
 from pico2d import load_image, get_time
 
-from state_machine import StateMachine, time_out, space_down, right_down, left_up, left_down, right_up, start_event
+from state_machine import StateMachine, time_out, space_down, right_down, left_up, left_down, right_up, start_event, auto_run
 
 
 # 상태를 클래스를 통해서 정의함.
@@ -121,7 +121,7 @@ class Boy:
         self.state_machine.set_transitions(
             {
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
-                Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep},
+                Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, auto_run: AutoRun},
                 Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle},
                 AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run}
             }
