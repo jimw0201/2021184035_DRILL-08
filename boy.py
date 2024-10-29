@@ -105,6 +105,12 @@ class AutoRun:
 
     @staticmethod
     def exit(boy, e):
+        if boy.face_dir == 1:
+            boy.action = 3
+        else:
+            boy.action = 2
+        boy.speed = 5
+        boy.scale = 1
         pass
 
     @staticmethod
