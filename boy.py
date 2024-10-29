@@ -115,6 +115,8 @@ class Boy:
         self.frame = 0
         self.dir = 0
         self.action = 3
+        self.speed = 5
+        self.scale = 1
         self.image = load_image('animation_sheet.png')
         self.state_machine = StateMachine(self) # 소년 객체의 state machine 생성
         self.state_machine.start(Idle) # 초기 상태가 Idle
