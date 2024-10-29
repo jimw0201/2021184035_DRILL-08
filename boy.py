@@ -115,7 +115,10 @@ class AutoRun:
 
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100 * boy.scale, 100 * boy.scale, boy.x, boy.y)
+        width, height = 100, 100
+        scaled_w = width * boy.scale
+        scaled_h = height * boy.scale
+        boy.image.clip_draw(boy.frame * width, boy.action * height, width, height, boy.x, boy.y + 40, scaled_w, scaled_h)
         pass
 
 
