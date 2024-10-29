@@ -102,6 +102,7 @@ class AutoRun:
         boy.frame = 0
         boy.speed = 10
         boy.scale = 2
+        boy.auto_run_time = get_time()
 
     @staticmethod
     def exit(boy, e):
@@ -120,6 +121,8 @@ class AutoRun:
         if boy.x < 50 or boy.x > 750:
             boy.dir *= -1
             boy.face_dir *= -1
+        if get_time() - boy.auto_run_time > 5:
+            boy.state_machine.add_event(('TIME_OUT', 0))
         pass
 
     @staticmethod
@@ -150,7 +153,7 @@ class Boy:
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
                 Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, auto_run: AutoRun},
                 Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle},
-                AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run}
+                AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Idle}
             }
         )
 
