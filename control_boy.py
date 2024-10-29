@@ -42,7 +42,6 @@ def reset_world():
 def update_world():
     for o in world:
         o.update()
-    pass
 
 
 def render_world():

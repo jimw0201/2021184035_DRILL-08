@@ -18,7 +18,6 @@ class Idle:
         boy.frame = 0
         # 현재 시간을 저장
         boy.start_time = get_time()
-        pass
 
     @staticmethod
     def exit(boy, e):
@@ -29,12 +28,10 @@ class Idle:
         boy.frame = (boy.frame + 1) % 8
         if get_time() - boy.start_time > 3:
             boy.state_machine.add_event(('TIME_OUT',0))
-        pass
 
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
-        pass
 
 class Sleep:
     @staticmethod
@@ -48,7 +45,6 @@ class Sleep:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        pass
 
     @staticmethod
     def draw(boy):
@@ -62,7 +58,6 @@ class Sleep:
                                           -3.141592 / 2,  # 90도 회전
                                           '',  # 좌우상하 반전 X
                                           boy.x + 25, boy.y - 25, 100, 100)
-        pass
 
 class Run:
     @staticmethod
@@ -73,7 +68,6 @@ class Run:
         elif left_down(e) or right_up(e):
             boy.dir = -1
             boy.action = 0
-
         boy.frame = 0
 
     @staticmethod
@@ -84,12 +78,16 @@ class Run:
     def do(boy):
         boy.x += boy.dir * boy.speed
         boy.frame = (boy.frame + 1) % 8
-        pass
+        if boy.x < 25:
+            boy.x = 25
+            boy.dir = 0
+        elif boy.x > 775:
+            boy.x = 775
+            boy.dir = 0
 
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
-        pass
 
 class AutoRun:
     @staticmethod
@@ -100,7 +98,7 @@ class AutoRun:
             boy.dir = -1
         boy.action = 1
         boy.frame = 0
-        boy.speed = 10
+        boy.speed = 20
         boy.scale = 2
         boy.auto_run_time = get_time()
 
@@ -112,7 +110,6 @@ class AutoRun:
             boy.action = 2
         boy.speed = 5
         boy.scale = 1
-        pass
 
     @staticmethod
     def do(boy):
@@ -123,7 +120,6 @@ class AutoRun:
             boy.face_dir *= -1
         if get_time() - boy.auto_run_time > 5:
             boy.state_machine.add_event(('TIME_OUT', 0))
-        pass
 
     @staticmethod
     def draw(boy):
@@ -134,7 +130,6 @@ class AutoRun:
             boy.image.clip_draw(boy.frame * width, boy.action * height, width, height, boy.x, boy.y + 40, scaled_w, scaled_h)
         else:
             boy.image.clip_composite_draw(boy.frame * width, boy.action * height, width, height, 0, 'h', boy.x, boy.y + 40, scaled_w, scaled_h)
-        pass
 
 
 class Boy:
@@ -171,5 +166,3 @@ class Boy:
     def draw(self):
         self.state_machine.draw()
         # self.image.clip_draw(self.frame * 100, self.action * 100, 100, 100, self.x, self.y)
-
-

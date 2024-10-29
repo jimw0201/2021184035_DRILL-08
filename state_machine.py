@@ -32,13 +32,11 @@ class StateMachine:
         self.obj = obj # 어떤 객체를 위한 상태머신인지 알려줌. obj = boy.self
         # 상태 이벤트를 보관할 리스트
         self.event_q = []
-        pass
 
     def start(self, state):
         self.cur_state = state # 시작 상태를 받아서, 그걸로 현재 상태를 정의
         self.cur_state.enter(self.obj, ('START', 0))
         print(f'Enter into {state}')
-        pass
 
     def update(self):
         self.cur_state.do(self.obj) # Idle.do()
@@ -61,17 +59,13 @@ class StateMachine:
                     return # 제대로 이벤트에 따른 상태 변환 완료
             # 이 시점으로 왔다는 것은, event 에 따른 전환 못함.
             print(f'        WARNING: {e} not handled at state {self.cur_state}')
-        pass
 
     def draw(self):
         self.cur_state.draw(self.obj)
-        pass
 
     def add_event(self, e):
         print(f'    DEBUG: add event {e}')
         self.event_q.append(e)
-        pass
 
     def set_transitions(self, transitions):
         self.transitions = transitions
-        pass
