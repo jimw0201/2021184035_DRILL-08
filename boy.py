@@ -82,8 +82,8 @@ class Run:
 
     @staticmethod
     def do(boy):
-        boy.x += boy.dir * 5
-        boy.frame = (boy.frame + 1) % 5
+        boy.x += boy.dir * boy.speed
+        boy.frame = (boy.frame + 1) % 8
         pass
 
     @staticmethod
@@ -94,7 +94,14 @@ class Run:
 class AutoRun:
     @staticmethod
     def enter(boy, e):
-        pass
+        if boy.face_dir == 1:
+            boy.dir = 1
+        else:
+            boy.dir = -1
+        boy.action = 1
+        boy.frame = 0
+        boy.speed = 10
+        boy.scale = 2
 
     @staticmethod
     def exit(boy, e):
@@ -102,10 +109,13 @@ class AutoRun:
 
     @staticmethod
     def do(boy):
+        boy.x += boy.dir * boy.speed
+        boy.frame = (boy.frame + 1) % 8
         pass
 
     @staticmethod
     def draw(boy):
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100 * boy.scale, 100 * boy.scale, boy.x, boy.y)
         pass
 
 
